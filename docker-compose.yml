@@ -1,0 +1,22 @@
+version: "3"
+services:
+  zoiper:
+    build:
+      context: .
+      args:
+        USER: ${USER}
+        UID: ${UID}
+    environment:
+      DISPLAY: ${DISPLAY}
+    network_mode: "host"
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:ro"
+      - "/run/user/${UID}/pulse:/run/pulse:ro"
+#      - "/etc/localtime:/etc/localtime"
+      - "/dev/shm:/dev/shm"
+      - "config:/home/${USER}/.config"
+    devices:
+      - /dev/snd
+      - /dev/dri
+volumes:
+  config:
